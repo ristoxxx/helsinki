@@ -19,5 +19,18 @@ app.get('/', async function (req, res) {
     res.json(filtered);
 });
 
+app.get('/health', async function (req, res) {
+    let start = new Date().getTime() / 1000;
+
+    let events = await getEventsAsync();
+
+    let end = new Date().getTime() / 1000;
+
+    res.json({
+        status: 'ok',
+        eventCount: events.length,
+        duration: end - start
+    });
+});
 
 app.listen(port, () => console.log(`running on port ${port}`));
