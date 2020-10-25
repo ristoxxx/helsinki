@@ -2,7 +2,7 @@ const express = require('express');
 const { createEventDateFilter, eventDateComparator } = require('./events/dates');
 const { getEventsAsync } = require('./events/client');
 
-const port = Number(process.env.PORT) || 3000;
+const port = process.env.PORT || 3000;
 
 const app = express();
 app.set('json spaces', 2);
@@ -29,7 +29,8 @@ app.get('/health', async function (req, res) {
     res.json({
         status: 'ok',
         eventCount: events.length,
-        duration: end - start
+        duration: end - start,
+        port
     });
 });
 
