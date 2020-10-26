@@ -1,4 +1,3 @@
-# Source: https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 FROM node:12-slim
 
 WORKDIR /usr/src/app
