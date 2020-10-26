@@ -14,7 +14,7 @@ on:
   pull_request:
 
 env:
-  # TODO: Change variable to your image's name.
+  # Name of the image in Azure Container Registry
   IMAGE_NAME: docker-demo
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
             docker build . --file Dockerfile
           fi
 
-  # Push image to GitHub Packages.
+  # Push image to Azure
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
@@ -50,11 +50,11 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
-      - name: Log into GitHub Container Registry
+      - name: Log into Azure Container Registry
       # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
         run: echo "${{ secrets.CR_PAT }}" | docker login swd4tn023.azurecr.io -u swd4tn023 --password-stdin
 
-      - name: Push image to GitHub Container Registry
+      - name: Push image to Azure Container Registry
         run: |
           IMAGE_ID=swd4tn023.azurecr.io/$IMAGE_NAME
 
